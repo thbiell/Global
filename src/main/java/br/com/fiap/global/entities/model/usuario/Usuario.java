@@ -1,5 +1,6 @@
 package br.com.fiap.global.entities.model.usuario;
 
+import br.com.fiap.global.model.entities.user.User;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,10 +25,6 @@ public class Usuario implements UserDetails, Serializable {
     @Column(unique = true)
     private String login;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true)
-    private Usuario usuarios;
-    
     private String senha;
 
     public Usuario() {

@@ -46,7 +46,7 @@ public class GlobalController {
 	}
 
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoUser dados) {
 		User user = repository.getReferenceById(dados.id());

@@ -34,9 +34,6 @@ public class User implements Serializable{
     private String email;
     
     private String idade;
-    
-    @OneToOne(mappedBy = "usuarios", cascade = CascadeType.ALL)
-    private Usuario usuario;
 
     @Embedded
     private Endereco endereco;

@@ -8,7 +8,7 @@ public record DadosAtualizacaoUser(
         Long id,
         String nome,
         String email,
-        @Pattern(regexp = "\\d{3}")
+        @Pattern(regexp = "^\\d{2}$")
         String idade,
         @Pattern(regexp = "\\d{10,11}")
         String telefone,

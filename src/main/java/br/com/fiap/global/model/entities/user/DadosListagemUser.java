@@ -16,10 +16,10 @@ public record DadosListagemUser(
 		this(
 				user.getId(),
 				user.getNome(),
-				user.getCpf(),
-				user.getEmail(),
-				user.getIdade(),
 				user.getTelefone(),
+				user.getEmail(),
+				user.getCpf(),
+				user.getIdade(),
 				user.getAtivo(),
 				user.getEndereco()
 			);
