@@ -27,6 +27,9 @@ public class Usuario implements UserDetails, Serializable {
 
     private String senha;
 
+    @OneToOne
+    @JoinColumn(name = "users_id")
+    private User user;
     public Usuario() {
     }
 
@@ -96,5 +99,12 @@ public class Usuario implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public User getUser() {
+        return user;
     }
 }

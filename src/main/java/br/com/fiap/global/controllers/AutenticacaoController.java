@@ -1,7 +1,5 @@
 package br.com.fiap.global.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +36,6 @@ public class AutenticacaoController {
 	@RequestMapping("/login")
 	@PostMapping
 	public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
-		System.out.println("Dados de autenticação:");
-		System.out.println("Login: " + dados.login());
-		System.out.println("Senha: " + dados.senha());
-
 		UserDetails userDetails = repository.findByLogin(dados.login());
 		if (userDetails != null) {
 			var authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, dados.senha(),
@@ -61,13 +54,15 @@ public class AutenticacaoController {
 	@PostMapping("/cadastro")
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<String> cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
 		DadosCadastroUsuario cadastroUsuario = DadosCadastroUsuario.createWithEncryptedPassword(dados.login(), dados.senha());
-		repository.save(new Usuario(cadastroUsuario)); // Usar cadastroUsuario em vez de dados
-		Usuario user = new Usuario();
-		var uri = uriBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
-		return ResponseEntity.created(uri).body(dados.login() + dados.senha());
+		Usuario usuario = new Usuario(cadastroUsuario);
+		Usuario savedUsuario = repository.save(usuario);
+
+		var uri = uriBuilder.path("/user/{id}").buildAndExpand(savedUsuario.getId()).toUri();
+		return ResponseEntity.created(uri).body(savedUsuario.getId() + " - Cadastro realizado com sucesso!");
 	}
+
 
 
 }

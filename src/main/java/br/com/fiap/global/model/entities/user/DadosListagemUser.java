@@ -1,5 +1,7 @@
 package br.com.fiap.global.model.entities.user;
 
+import br.com.fiap.global.entities.model.usuario.Usuario;
+
 public record DadosListagemUser(
 		Long id,
 		String nome,
@@ -8,11 +10,13 @@ public record DadosListagemUser(
 		String cpf,
 		String idade,
 		Boolean ativo,
-		Endereco endereco
+		Endereco endereco,
+		String login,
+		Long users_id
+) {
 
-	) {
-	
-	public DadosListagemUser(User user) {
+	public DadosListagemUser(User user, Usuario usuario) {
+
 		this(
 				user.getId(),
 				user.getNome(),
@@ -21,8 +25,9 @@ public record DadosListagemUser(
 				user.getCpf(),
 				user.getIdade(),
 				user.getAtivo(),
-				user.getEndereco()
-			);
+				user.getEndereco(),
+				usuario.getLogin(),
+				usuario.getId()
+		);
 	}
-	
 }

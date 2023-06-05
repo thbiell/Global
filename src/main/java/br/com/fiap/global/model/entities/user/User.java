@@ -22,7 +22,8 @@ public class User implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
+
+
     private String nome;
 
     private Boolean ativo;
@@ -38,7 +39,19 @@ public class User implements Serializable{
     @Embedded
     private Endereco endereco;
 
-    public User() {
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Usuario usuario;
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public User() {
     }
     
     public User(DadosCadastroUser dados) {
