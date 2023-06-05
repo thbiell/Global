@@ -69,11 +69,11 @@
 #### Cadastra um user
 
 ```http
-  post /user
+  post /user/{id}
 ```
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-|  `nome`  | `string` | **Obrigatório** o token e cumprir os regexp|
+|  `nome`  | `string` | **Obrigatório** o token e cumprir os regexp, além do id que foi gerado no cadastro do login|
 |  `cpf`  | `string` |
 |  `email`  | `string` |
 |  `idade`  | `string` |
@@ -132,11 +132,11 @@ Endpoints: Aqui estão alguns exemplos de endpoints disponíveis na API:
 
 POST /login: Endpoint para efetuar login. Envie um JSON contendo as credenciais do usuário (login e senha) no corpo da requisição. O endpoint retornará um token JWT válido em caso de sucesso.
 
-POST /cadastro: Endpoint para cadastrar um usuário. Envie um JSON contendo os dados de cadastro do usuário (login e senha) no corpo da requisição. O usuário será salvo no banco de dados.
+POST /cadastro: Endpoint para cadastrar um usuário. Envie um JSON contendo os dados de cadastro do usuário (login e senha) no corpo da requisição. O usuário será salvo no banco de dados, ele irá retornar o id do usuario que será necessário para cadastrar futuramente suas informações pessoais.
 
 GET /user/{id}: Endpoint para obter informações de um usuário específico. Substitua {id} pelo ID do usuário desejado na URL da requisição. O endpoint retornará um JSON contendo os dados do usuário correspondente.
 
-POST /user: Endpoint para criar um novo usuário. Envie um JSON contendo os dados do usuário (nome, CPF, email, idade, telefone, endereço, endereço contém: logradouro, numero, bairro, cep, cidade, uf, complemento) no corpo da requisição. O usuário será criado e salvo no banco de dados.
+POST /user/{id}: Endpoint para criar um novo usuário. Envie um JSON contendo os dados do usuário (nome, CPF, email, idade, telefone, endereço, endereço contém: logradouro, numero, bairro, cep, cidade, uf, complemento) no corpo da requisição. O usuário será criado e salvo no banco de dados.
 
 DELETE /user/{id}: Endpoint para excluir um usuário. Substitua {id} pelo ID do usuário que deseja excluir na URL da requisição. O usuário correspondente será removido do banco de dados.
 
